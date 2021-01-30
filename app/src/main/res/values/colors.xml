@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4a148c</color>
+    <color name="colorPrimaryDark">#12005e</color>
+    <color name="colorPrimaryLight">#7c43bd</color>
+    <color name="progressColor">#FF6F12CA</color>
+    <color name="invisivel">#00DF06E4</color>
+    <color name="preto">#000000</color>
+    <color name="colorSecundary">#df3ff9</color>
+    <color name="colorSecundaryDark">#a900c5</color>
+    <color name="colorSecundaryLight">#ff78ff</color>
+    <color name="titulos">#CB4E4E4E</color>
+    <color name="gray">#737373</color>
+</resources>
