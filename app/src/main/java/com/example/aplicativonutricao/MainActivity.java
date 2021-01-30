@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -141,11 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
-    public ArrayList<String> adicionarFood(ArrayList<String> quantidade, ArrayList<String> alimento){
-        Food e = new Food(quantidade, alimento);
-        ArrayList<String> lista = e.listaTratada();
-        return lista;
-    }
+
 
 
 
@@ -317,8 +314,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.editMenu){
-            Intent intent = new Intent(this, MenuEdit.class);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(),"Não tem nada aqui.", Toast.LENGTH_SHORT).show();
         }
         return true;
     }

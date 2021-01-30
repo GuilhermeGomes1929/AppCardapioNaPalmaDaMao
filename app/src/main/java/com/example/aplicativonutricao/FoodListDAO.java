@@ -41,40 +41,7 @@ public class FoodListDAO {
         return tables;
     }
 
-    public ArrayList<String> getFoodName(String table, ArrayList<Integer> id){
-        ArrayList<String> foodNames = new ArrayList<>();
-        Cursor cursor = foodDb.query(table, new String[]{"foodname"}, null, null, null, null, null);
-        for (int i = 0; i < id.size(); i++){
-            cursor.moveToPosition(id.get(i));
-            foodNames.add(cursor.getString(0));
 
-        }
-
-        return foodNames;
-    }
-
-    public ArrayList<Integer> getFoodWeight(String table, ArrayList<Integer> id){
-        ArrayList<Integer> weight = new ArrayList<>();
-        Cursor cursor = foodDb.query(table, new String[]{"weight"}, null, null, null, null, null);
-
-        for (int i = 0; i < id.size(); i++){
-            cursor.moveToPosition(id.get(i));
-            weight.add(cursor.getInt(0));
-
-        }
-        return weight;
-    }
-
-    public ArrayList<String> getHomeMeasures(String table, ArrayList<Integer> id){
-        ArrayList<String> homeMeasure = new ArrayList<>();
-        Cursor cursor = foodDb.query(table, new String[]{"homemeasure"}, null, null, null, null, null);
-
-        for (int i = 0; i < id.size(); i++){
-            cursor.moveToPosition(id.get(i));
-            homeMeasure.add(cursor.getString(0));
-        }
-        return homeMeasure;
-    }
 
     public FoodListModel getItemMenu(String table, int index){
         getConnection();
@@ -94,6 +61,27 @@ public class FoodListDAO {
 
         foodDb.close();
         return foodListModel;
+    }
+
+    public ArrayList<FoodListModel> getAllFood(String table){
+        getConnection();
+
+        ArrayList<FoodListModel> foodlist = new ArrayList<>();
+        Cursor cursor = foodDb.query(table, new String[]{"foodname", "weight","homemeasure","homeportions"}, null,null,null,null,null);
+
+        while (cursor.moveToNext()){
+            foodlist.add( new FoodListModel(0,
+                    null,
+                    cursor.getString(0),
+                    cursor.getInt(1),
+                    cursor.getString(2),
+                    0,
+                    cursor.getDouble(3)));
+        }
+
+        foodDb.close();
+        return foodlist;
+
     }
 
 

@@ -29,31 +29,19 @@ public class MenuModel {
         return foodGroup;
     }
 
-    public void setFoodGroup(int foodGroup) {
-        this.foodGroup = foodGroup;
-    }
 
     public int getFood() {
         return food;
     }
 
-    public void setFood(int food) {
-        this.food = food;
-    }
 
     public double getPortion() {
         return portion;
     }
 
-    public void setPortion(double portion) {
-        this.portion = portion;
-    }
 
     public int getSubs() {
         return subs;
     }
 
-    public void setSubs(int subs) {
-        this.subs = subs;
-    }
 }

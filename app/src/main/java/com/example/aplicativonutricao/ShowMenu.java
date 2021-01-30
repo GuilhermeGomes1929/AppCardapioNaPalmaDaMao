@@ -1,12 +1,10 @@
 package com.example.aplicativonutricao;
 
 import android.Manifest;
-import android.app.Activity;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -17,20 +15,24 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+
 
 
 public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -65,6 +67,9 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Meu cardápio");
 
+        //Setup da data
+        setDate();
+
         //Verifica as permissões
         checkPermissions();
 
@@ -79,6 +84,14 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
         //setup da expansão de botões
         setupExpand();
     }
+
+    public void setDate(){
+        TextView dateText = findViewById(R.id.date);
+        Date date = new Date();
+        String dateString = new SimpleDateFormat("dd/MM/yyyy").format(date);
+        dateText.setText(dateString);
+    }
+
 
     public void chooseMenu(){
 
@@ -125,27 +138,27 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
     public void setupListViewsMenu(){
         try{
 
-            FoodListDAO foodListDAO = new FoodListDAO();
+            final FoodListDAO foodListDAO = new FoodListDAO();
             MenuDAO menuDAO = new MenuDAO(menuName);
 
-            listViewBreakFast = findViewById(R.id.list_menu_breakfast);
-            listViewSnack = findViewById(R.id.list_menu_snack);
-            listViewLunch = findViewById(R.id.list_menu_lunch);
-            listViewAftersnack = findViewById(R.id.list_menu_aftersnack);
-            listViewDinner = findViewById(R.id.list_menu_dinner);
-            listViewSupper = findViewById(R.id.list_menu_supper);
+            MyListView mylistViewBreakFast = findViewById(R.id.list_menu_breakfast);
+            MyListView mylistViewSnack = findViewById(R.id.list_menu_snack);
+            MyListView mylistViewLunch = findViewById(R.id.list_menu_lunch);
+            MyListView mylistViewAftersnack = findViewById(R.id.list_menu_aftersnack);
+            MyListView mylistViewDinner = findViewById(R.id.list_menu_dinner);
+            MyListView mylistViewSupper = findViewById(R.id.list_menu_supper);
 
 
             ArrayList<ListView> listViewArrayList = new ArrayList<>();
-            listViewArrayList.add(listViewBreakFast);
-            listViewArrayList.add(listViewSnack);
-            listViewArrayList.add(listViewLunch);
-            listViewArrayList.add(listViewAftersnack);
-            listViewArrayList.add(listViewDinner);
-            listViewArrayList.add(listViewSupper);
+            listViewArrayList.add(mylistViewBreakFast);
+            listViewArrayList.add(mylistViewSnack);
+            listViewArrayList.add(mylistViewLunch);
+            listViewArrayList.add(mylistViewAftersnack);
+            listViewArrayList.add(mylistViewDinner);
+            listViewArrayList.add(mylistViewSupper);
 
 
-            String[] table = new String[]{"[café da manhã]","[lanche]","[almoço]","[lanche da tarde]","[jantar]","[ceia]"};
+            final String[] table = new String[]{"[café da manhã]","[lanche]","[almoço]","[lanche da tarde]","[jantar]","[ceia]"};
 
 
             ArrayList<String> tables = foodListDAO.getAllTables();
@@ -154,9 +167,11 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
             for (int x = 0; x < tables.size(); x++){
 
                 ArrayList<String> foods = new ArrayList<>();
+                final ArrayList<String> foodNames = new ArrayList<>();
+                final ArrayList<String> homePortions = new ArrayList<>();
 
 
-                ArrayList<MenuModel> index = menuDAO.getData(table[x]);
+                final ArrayList<MenuModel> index = menuDAO.getData(table[x]);
 
 
                 for (int i = 0; i < index.size(); i++){
@@ -172,11 +187,21 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
                     int weight = foodListModel.getWeight();
 
                     foods.add(weight *  portion + "g " +foodListModel.getFoodName());
+                    foodNames.add(foodListModel.getFoodName());
+                    homePortions.add(foodListModel.getHomePortions() * portion + " "+ foodListModel.getHomeMeasure());
+
 
                 }
 
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foods);
                 listViewArrayList.get(x).setAdapter(arrayAdapter);
+
+                listViewArrayList.get(x).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        alertDialogSubs(position, index, foodNames.get(position), homePortions.get(position));
+                    }
+                });
 
             }
 
@@ -188,6 +213,70 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
 
 
 
+
+
+    }
+
+    public void alertDialogSubs(int position, ArrayList<MenuModel> listMenuModel, String foodName, String homePortion){
+
+        FoodListDAO foodListDAO = new FoodListDAO();
+        ArrayList<String> tables = foodListDAO.getAllTables();
+
+        AlertDialog.Builder subsBox = new AlertDialog.Builder(this);
+        View dialogShowSubs = getLayoutInflater().inflate(R.layout.dialog_show_subs, null);
+        TextView foodNameTextView = dialogShowSubs.findViewById(R.id.food_name);
+        TextView homePortionTextView = dialogShowSubs.findViewById(R.id.food_homeportion);
+        ListView listViewSubs = dialogShowSubs.findViewById(R.id.food_subs);
+        CardView subsCard = dialogShowSubs.findViewById(R.id.subs_card);
+
+        foodNameTextView.setText(foodName);
+        homePortionTextView.setText(homePortion);
+
+        if (listMenuModel.get(position).getSubs() == 1){
+
+            int foodgroup = listMenuModel.get(position).getFoodGroup();
+            Double portion = listMenuModel.get(position).getPortion();
+
+            final ArrayList<String[]> subs = new ArrayList<>();
+
+
+            ArrayList<FoodListModel> foodListModels = foodListDAO.getAllFood(tables.get(foodgroup));
+
+            for (int i = 0; i < foodListModels.size(); i++){
+
+
+                subs.add(new String[]{(double) foodListModels.get(i).getWeight() * portion +"g " + foodListModels.get(i).getFoodName(),
+                        "ou "+ foodListModels.get(i).getHomePortions() * portion + " " + foodListModels.get(i).getHomeMeasure()});
+
+            }
+
+            ArrayAdapter<String[]> arrayAdapter = new ArrayAdapter<String[]>(getApplicationContext(), android.R.layout.simple_list_item_2, android.R.id.text1, subs){
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View viewAdapter = super.getView(position, convertView, parent);
+                    String[] entry = subs.get(position);
+                    TextView text1 = viewAdapter.findViewById(android.R.id.text1);
+                    TextView text2 = viewAdapter.findViewById(android.R.id.text2);
+                    text1.setText(entry[0]);
+                    text2.setText(entry[1]);
+
+                    return viewAdapter;
+                }
+            };
+
+            listViewSubs.setAdapter(arrayAdapter);
+
+        }else{
+
+            subsCard.setVisibility(View.GONE);
+
+        }
+
+
+
+
+        subsBox.setView(dialogShowSubs);
+        subsBox.show();
 
 
     }
@@ -235,7 +324,7 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
         buttonExpand1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expand(v, contExpand1, buttonExpand1, listViewBreakFast.getCount());
+                expand(contExpand1, buttonExpand1, listViewBreakFast.getCount());
 
             }
         });
@@ -243,35 +332,35 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
         buttonExpand2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expand(v, contExpand2, buttonExpand2, listViewSnack.getCount());
+                expand(contExpand2, buttonExpand2, listViewSnack.getCount());
             }
         });
 
         buttonExpand3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expand(v, contExpand3, buttonExpand3, listViewLunch.getCount());
+                expand(contExpand3, buttonExpand3, listViewLunch.getCount());
             }
         });
 
         buttonExpand4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expand(v, contExpand4, buttonExpand4, listViewAftersnack.getCount());
+                expand(contExpand4, buttonExpand4, listViewAftersnack.getCount());
             }
         });
 
         buttonExpand5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expand(v, contExpand5, buttonExpand5, listViewDinner.getCount());
+                expand(contExpand5, buttonExpand5, listViewDinner.getCount());
             }
         });
 
         buttonExpand6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expand(v, contExpand6, buttonExpand6, listViewSupper.getCount()
+                expand(contExpand6, buttonExpand6, listViewSupper.getCount()
                 );
             }
         });
@@ -280,7 +369,7 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
 
     }
 
-    public void expand(View view, LinearLayout numberId, Button changeButton, int count) {
+    public void expand(LinearLayout numberId, Button changeButton, int count) {
         if (count == 0){
             AlertDialog.Builder msgBox = new AlertDialog.Builder(this);
             msgBox.setTitle("Ops.. Cardápio vazio!");
