@@ -4,11 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.ArrayAdapter;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class InfoDAO {
     private Conexao conexao;
@@ -19,18 +16,7 @@ public class InfoDAO {
 
     }
 
-    public long insert(String table, int fa, String fc, int fg, int fi, String fp){
-        banco = conexao.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("quantidade", fa);
-        values.put("alimento", fc);
-        values.put("grupo", fg);
-        values.put("adress", fi);
-        values.put("peso", fp);
-        long valuesReturn = banco.insert(table, null, values);
-        banco.close();
-        return valuesReturn;
-    }
+
 
     public long insertValues(String table, ContentValues values){
         banco = conexao.getWritableDatabase();
@@ -40,74 +26,7 @@ public class InfoDAO {
 
     }
 
-    public ArrayList<Integer> obterId(String table){
 
-        banco = conexao.getWritableDatabase();
-        ArrayList<Integer> id = new ArrayList<>();
-        Cursor cursor = banco.query(table, new String[]{"id"},null, null, null, null, null);
-        while (cursor.moveToNext()){
-            id.add(cursor.getInt(0));
-        }
-        banco.close();
-        return id;
-    }
-
-
-    public ArrayList<String> obterAlimento(String table){
-        banco = conexao.getWritableDatabase();
-        ArrayList<String> alimento = new ArrayList<>();
-        Cursor cursor = banco.query(table, new String[]{"alimento"}, null, null, null, null, null);
-        while (cursor.moveToNext()){
-            alimento.add(cursor.getString(0));
-        }
-        banco.close();
-        return alimento;
-
-    }
-
-    public ArrayList<Integer> obterQuantidade(String table){
-        banco = conexao.getWritableDatabase();
-        ArrayList<Integer> quantidade = new ArrayList<>();
-        Cursor cursor = banco.query(table, new String[]{"quantidade"}, null,null,null,null,null);
-        while (cursor.moveToNext()){
-            quantidade.add(cursor.getInt(0));
-        }
-        banco.close();
-        return quantidade;
-    }
-
-    public ArrayList<String> obterGrupo(String table){
-        banco = conexao.getWritableDatabase();
-        ArrayList<String> grupo = new ArrayList<>();
-        Cursor cursor = banco.query(table, new String[]{"grupo"}, null, null, null, null,null);
-        while (cursor.moveToNext()){
-            grupo.add(cursor.getString(0));
-        }
-        banco.close();
-        return grupo;
-    }
-
-    public ArrayList<Integer> obterIndex(String table){
-        banco = conexao.getWritableDatabase();
-        ArrayList<Integer> index = new ArrayList<>();
-        Cursor cursor = banco.query(table, new String[]{"adress"}, null, null, null, null, null);
-        while (cursor.moveToNext()){
-            index.add(cursor.getInt(0));
-
-        }
-        banco.close();
-        return index;
-    }
-    public ArrayList<String> obterPeso(String table){
-        banco = conexao.getWritableDatabase();
-        ArrayList<String> peso = new ArrayList<>();
-        Cursor cursor = banco.query(table, new String[]{"peso"}, null,null,null,null,null);
-        while (cursor.moveToNext()){
-            peso.add(cursor.getString(0));
-        }
-        banco.close();
-        return peso;
-    }
 
     public void delete(String table, int position){
         banco = conexao.getWritableDatabase();
@@ -123,16 +42,7 @@ public class InfoDAO {
 
     }
 
-    public void deleteDb(String table){
-        banco = conexao.getWritableDatabase();
-        Cursor cursor = banco.query(table, new String[]{"id"}, null, null, null, null, null);
-        while (cursor.moveToNext()){
-            banco.delete(table, "id = ?", new String[]{String.valueOf(cursor.getInt(0))});
 
-        }
-        banco.close();
-
-    }
 
     public ArrayList<String> obterData(){
         banco = conexao.getWritableDatabase();
