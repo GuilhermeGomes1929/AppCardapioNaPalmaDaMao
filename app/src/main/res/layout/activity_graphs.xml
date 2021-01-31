@@ -68,7 +68,7 @@
 
                         android:background="?android:attr/listDivider"/>
 
-                    <com.jjoe64.graphview.GraphView
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/graph_weight"/>
@@ -108,7 +108,7 @@
 
                         android:background="?android:attr/listDivider"/>
 
-                    <com.jjoe64.graphview.GraphView
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/graph_bf"/>
@@ -149,7 +149,7 @@
 
                         android:background="?android:attr/listDivider"/>
 
-                    <com.jjoe64.graphview.GraphView
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/graph_ombros"/>
@@ -189,7 +189,7 @@
 
                         android:background="?android:attr/listDivider"/>
 
-                    <com.jjoe64.graphview.GraphView
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/graph_peitoral"/>
@@ -229,7 +229,7 @@
 
                         android:background="?android:attr/listDivider"/>
 
-                    <com.jjoe64.graphview.GraphView
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/graph_bracos"/>
@@ -269,7 +269,7 @@
 
                         android:background="?android:attr/listDivider"/>
 
-                    <com.jjoe64.graphview.GraphView
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/graph_cintura"/>
@@ -309,7 +309,7 @@
 
                         android:background="?android:attr/listDivider"/>
 
-                    <com.jjoe64.graphview.GraphView
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/graph_quadril"/>
@@ -349,7 +349,7 @@
 
                         android:background="?android:attr/listDivider"/>
 
-                    <com.jjoe64.graphview.GraphView
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/graph_pernas"/>
@@ -389,7 +389,7 @@
 
                         android:background="?android:attr/listDivider"/>
 
-                    <com.jjoe64.graphview.GraphView
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/graph_panturrilhas"/>

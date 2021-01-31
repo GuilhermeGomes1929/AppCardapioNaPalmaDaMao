@@ -16,7 +16,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GetInfos extends AppCompatActivity {
 
@@ -102,8 +105,12 @@ public class GetInfos extends AppCompatActivity {
                 msgBox.setPositiveButton("Deletar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dao.delete("body", spinner.getSelectedItemPosition());
-                        Toast.makeText(getApplicationContext(),"Informações da data "+ spinner.getSelectedItem().toString()+ " foram deletadas." ,Toast.LENGTH_LONG).show();
+                        if (spinner.getCount() > 0){
+                            dao.delete("body", spinner.getSelectedItemPosition());
+                            Toast.makeText(getApplicationContext(),"Informações da data "+ spinner.getSelectedItem().toString()+ " foram deletadas." ,Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Não há informações para deletar.", Toast.LENGTH_LONG).show();
+                        }
 
                     }
                 });
@@ -186,9 +193,8 @@ public class GetInfos extends AppCompatActivity {
     }
 
     public void saveWeight(){
-        diaOne = findViewById(R.id.dia_one);
-        mesOne = findViewById(R.id.mes_one);
-        anoOne = findViewById(R.id.ano_one);
+        Date date = new Date();
+
 
         pesoAtual= findViewById(R.id.peso);
         meta = findViewById(R.id.meta);
@@ -209,7 +215,7 @@ public class GetInfos extends AppCompatActivity {
 
         ContentValues values = new ContentValues();
         try{
-            values.put("data", diaOne.getText().toString()+"-"+mesOne.getText().toString()+"-"+anoOne.getText().toString());
+            values.put("data", new SimpleDateFormat("dd-MM").format(date));
             values.put("peso", Float.valueOf(String.valueOf(pesoAtual.getText())).floatValue());
             values.put("meta", Float.valueOf(String.valueOf(meta.getText())).floatValue());
             values.put("bf", Float.valueOf(String.valueOf(bf.getText())).floatValue());

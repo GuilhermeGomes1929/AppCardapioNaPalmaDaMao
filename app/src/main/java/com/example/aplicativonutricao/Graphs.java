@@ -12,12 +12,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Graphs extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,17 +51,21 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
 
         dao = new InfoDAO(this);
 
+        ArrayList<String> allDates = dao.obterData();
 
 
-        setupGraphs(R.id.graph_weight, dao.obterPesoGrafico());
-        setupGraphs(R.id.graph_bf, dao.obterBfGrafico());
-        setupGraphs(R.id.graph_ombros, dao.obterOmbrosGrafico());
-        setupGraphs(R.id.graph_bracos, dao.obterbracosGrafico());
-        setupGraphs(R.id.graph_peitoral, dao.obterPeitoralGrafico());
-        setupGraphs(R.id.graph_cintura, dao.obterCinturaGrafico());
-        setupGraphs(R.id.graph_quadril, dao.obterQuadrilGrafico());
-        setupGraphs(R.id.graph_pernas, dao.obterPernasGrafico());
-        setupGraphs(R.id.graph_panturrilhas, dao.obterPanturrilhasGrafico());
+        setupGraphs(R.id.graph_weight, dao.obterPesoGrafico(), allDates, "Peso");
+        setupGraphs(R.id.graph_bf, dao.obterBfGrafico(), allDates, "Gordura corporal");
+        setupGraphs(R.id.graph_ombros, dao.obterOmbrosGrafico(), allDates, "Ombros");
+        setupGraphs(R.id.graph_peitoral, dao.obterPeitoralGrafico(),allDates,"Peitoral");
+        setupGraphs(R.id.graph_bracos,dao.obterbracosGrafico(), allDates,"Braços");
+        setupGraphs(R.id.graph_cintura, dao.obterCinturaGrafico(), allDates, "Cintura");
+        setupGraphs(R.id.graph_quadril, dao.obterQuadrilGrafico(), allDates, "Quadril");
+        setupGraphs(R.id.graph_pernas, dao.obterPernasGrafico(), allDates, "Pernas");
+        setupGraphs(R.id.graph_panturrilhas, dao.obterPanturrilhasGrafico(), allDates, "Panturrilhas");
+
+
+
 
 
 
@@ -61,85 +74,62 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
 
     }
 
-    public void setupGraphs(int i, ArrayList<String> list){
-        GraphView graphView = findViewById(i);
-        LineGraphSeries<DataPoint> lineGraphSeries = new LineGraphSeries<>(getData(list));
-        lineGraphSeries.setColor(getResources().getColor(R.color.colorPrimary));
-        lineGraphSeries.setThickness(8);
-        lineGraphSeries.setDrawDataPoints(true);
+    public void setupGraphs(int chartId, ArrayList<String> data, final ArrayList<String> date , String label){
+
+        LineChart lineChart = findViewById(chartId);
+
+        if (data.isEmpty()){
+            lineChart.setNoDataText("Não há informações salvas.");
+        }else {
+
+            ArrayList<Entry> entries = new ArrayList<>();
+            XAxis xAxis = lineChart.getXAxis();
+
+            for (int i = 0; i < data.size(); i++){
+                entries.add( new Entry(i + 1, Float.valueOf(data.get(i))));
+
+            }
+
+            Description description = new Description();
+            description.setText(" ");
+
+            LineDataSet lineDataSet = new LineDataSet(entries,label);
+            lineDataSet.setCircleColor(R.color.colorPrimaryDark);
+            lineDataSet.setCircleColorHole(R.color.colorPrimaryDark);
 
 
-        graphView.addSeries(lineGraphSeries);
-
-        graphView.getViewport().setYAxisBoundsManual(true);
-        graphView.getViewport().setXAxisBoundsManual(true);
-
-
-        graphView.getViewport().setMinY(getMinValueOfList(list) - 2);
-        graphView.getViewport().setMaxY(getMaxValueOfList(list) + 2);
-
-        graphView.getViewport().setMinX(0);
-        graphView.getViewport().setMaxX(2);
-
-        graphView.getViewport().setScrollable(true);
+            LineData lineData = new LineData(lineDataSet);
+            lineChart.setData(lineData);
+            lineChart.invalidate();
+            lineChart.setDrawBorders(true);
+            lineChart.setBorderColor(R.color.colorPrimary);
+            lineChart.setDescription(description);
 
 
-        final String[] strings = getString(dao.obterData());
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-        graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
-            @Override
-            public String formatLabel(double value, boolean isValueX){
-                if (isValueX){
-
-
-                    String[] splitValue = Double.toString(value).split("\\.");
-                    if (Integer.parseInt(splitValue[1]) > 0){
-                        return " ";
-                    }else{
-                        int valor = (int) value;
-                        return strings[valor];
+            xAxis.setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    for (int n = 0; n < date.size(); n++){
+                        if (n == value){
+                            return date.get(n);
+                        }
                     }
-
-                }else {
-                    return super.formatLabel(value,isValueX);
+                    return "";
                 }
 
-            }
-        });
+            });
 
 
-        graphView.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.colorPrimaryDark));
-        graphView.getGridLabelRenderer().setLabelsSpace(10);
-        
-        graphView.getGridLabelRenderer().setHumanRounding(false);
-
-    }
-
-    public Float getMaxValueOfList(ArrayList<String> list){
-
-        Float maxValue = Float.valueOf(0);
-
-        for (int i=0; i < list.size(); i++){
-            if (Float.valueOf(list.get(i)) > maxValue){
-                maxValue = Float.valueOf(list.get(i));
-            }
 
         }
 
-        return maxValue;
+
     }
 
-    public Float getMinValueOfList(ArrayList<String> list){
-        Float minValue = Float.valueOf(100 *1000);
 
-        for (int i=0; i<list.size(); i++){
-            if (Float.valueOf(list.get(i)) < minValue){
-                minValue = Float.valueOf(list.get(i));
 
-            }
-        }
-        return minValue;
-    }
 
     public void setupNavigationDrawer(){
 
@@ -157,24 +147,7 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
         toggle.syncState();
 
     }
-    public String[] getString(ArrayList<String> datas){
-        String[] list = new String[datas.size()];
-        for (int i = 0; i < datas.size(); i++){
-            list[i] = datas.get(i);
-        }
 
-        return list;
-    }
-
-    public DataPoint[] getData( ArrayList<String> list){
-
-        DataPoint[] dataPoints = new DataPoint[list.size()];
-        for (int i = 0; i<list.size(); i++){
-            dataPoints[i] = new DataPoint(i , Float.valueOf(list.get(i)));
-
-        }
-        return dataPoints;
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
