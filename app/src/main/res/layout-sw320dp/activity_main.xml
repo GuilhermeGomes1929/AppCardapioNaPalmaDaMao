@@ -76,15 +76,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Bem vindo"
-                        android:textSize="35sp"
-                        android:textAlignment="center"
-                        android:textColor="@color/preto"
-                        android:gravity="center_horizontal" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ao"
                         android:textSize="30sp"
                         android:textAlignment="center"
                         android:textColor="@color/preto"
@@ -93,8 +84,17 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="ao"
+                        android:textSize="25sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/preto"
+                        android:gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="aplicativo nutrição"
-                        android:textSize="40sp"
+                        android:textSize="35sp"
                         android:textAlignment="center"
                         android:textColor="@color/preto"
                         android:gravity="center_horizontal" />
@@ -110,6 +110,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginBottom="40dp"
                 app:cardCornerRadius="10dp"
                 app:cardBackgroundColor="@color/colorSecundary">
 
@@ -127,7 +128,7 @@
                         android:layout_marginRight="10dp"
                         android:textAlignment="center"
                         android:text="Para iniciar a experiência, nos informe alguns dados:"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         android:textColor="@color/preto"
                         android:gravity="center_horizontal" />
 
@@ -136,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:layout_marginLeft="10dp"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         android:text="Nome:"
                         android:textColor="@color/preto"
                         />
@@ -154,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:layout_marginLeft="10dp"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         android:text="Idade:"
                         android:textColor="@color/preto"
                         />
@@ -172,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:layout_marginLeft="10dp"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         android:text="Altura:"
                         android:textColor="@color/preto"
                         />
@@ -190,7 +191,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:layout_marginLeft="10dp"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         android:text="Sexo:"
                         android:textColor="@color/preto"
                         />
