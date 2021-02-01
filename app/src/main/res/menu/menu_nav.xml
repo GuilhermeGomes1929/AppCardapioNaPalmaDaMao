@@ -12,10 +12,6 @@
                     android:title="Meu corpo"
                     android:id="@+id/nav_mybody"
                     android:icon="@drawable/mybodyicon"/>
-                <item
-                    android:title="Lembrete de água"
-                    android:id="@+id/nav_water"
-                    android:icon="@drawable/water"/>
 
             </menu>
 
@@ -31,16 +27,6 @@
                     android:title="Gráficos"
                     android:id="@+id/nav_graphics"
                     android:icon="@drawable/graphics"/>
-
-                <item
-                    android:title="Metas"
-                    android:id="@+id/nav_metas"
-                    android:icon="@drawable/metas"/>
-
-                <item
-                    android:title="Diário"
-                    android:id="@+id/nav_diario"
-                    android:icon="@drawable/book"/>
 
 
             </menu>

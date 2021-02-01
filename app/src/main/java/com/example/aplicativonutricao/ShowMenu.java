@@ -425,16 +425,6 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
                 Toast.makeText(this,"Cardápio", Toast.LENGTH_LONG).show();
                 break;
 
-            case R.id.nav_water:
-                Intent intentWater = new Intent(this, Water.class);
-                startActivity(intentWater);
-                break;
-
-            case R.id.nav_metas:
-                Intent intentMetas = new Intent(this, Metas.class);
-                startActivity(intentMetas);
-                break;
-
             case R.id.nav_mybody:
                 Intent intentMyBody = new Intent(this, MyBody.class);
                 startActivity(intentMyBody);

@@ -178,18 +178,8 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
                 break;
 
             case R.id.nav_menu:
-                Intent intentMenu = new Intent(this, MainActivity.class);
+                Intent intentMenu = new Intent(this, ShowMenu.class);
                 startActivity(intentMenu);
-                break;
-
-            case R.id.nav_water:
-                Intent intentWater = new Intent(this, Water.class);
-                startActivity(intentWater);
-                break;
-
-            case R.id.nav_metas:
-                Intent intentMetas = new Intent(this, Metas.class);
-                startActivity(intentMetas);
                 break;
 
             case R.id.nav_mybody:

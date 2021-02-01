@@ -14,8 +14,6 @@
         <activity android:name=".ShowMenu"></activity>
         <activity android:name=".Graphs" />
         <activity android:name=".GetInfos" />
-        <activity android:name=".Water" />
-        <activity android:name=".Metas" />
         <activity android:name=".MyBody" />
         <activity android:name=".MainActivity">
             <intent-filter>
