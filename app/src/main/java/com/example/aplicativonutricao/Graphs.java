@@ -106,7 +106,7 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
             XAxis xAxis = lineChart.getXAxis();
 
             for (int i = 0; i < data.size(); i++){
-                entries.add( new Entry(i + 1, Float.valueOf(data.get(i))));
+                entries.add( new Entry(i , Float.valueOf(data.get(i))));
 
             }
 
