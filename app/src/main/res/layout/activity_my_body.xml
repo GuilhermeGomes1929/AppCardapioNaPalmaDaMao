@@ -362,13 +362,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/silhouette"
                         android:layout_width="wrap_content"
                         android:layout_height="400dp"
                         android:layout_marginTop="10dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView13"
-                        app:srcCompat="@drawable/silhouet_woman" />
+                        app:srcCompat="@drawable/male_silhouette" />
 
                     <TextView
                         android:id="@+id/textView8"

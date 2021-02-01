@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -48,6 +50,7 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
         setupNavigationDrawer();
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        changeName();
 
         dao = new InfoDAO(this);
 
@@ -72,6 +75,17 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
 
 
 
+    }
+
+    public void changeName(){
+
+        View headerLayout = getLayoutInflater().inflate(R.layout.nav_header, null);
+        TextView name = headerLayout.findViewById(R.id.nav_name);
+
+        InfoDAO infoDAO = new InfoDAO(this);
+
+
+        name.setText(infoDAO.obterNomeIdadeAltura().get(0));
     }
 
     public void setupGraphs(int chartId, ArrayList<String> data, final ArrayList<String> date , String label){

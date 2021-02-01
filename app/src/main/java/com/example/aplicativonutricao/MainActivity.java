@@ -1,15 +1,19 @@
 package com.example.aplicativonutricao;
 
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
 
+import android.content.pm.PackageManager;
 import android.icu.text.IDNA;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity{
         //Verifica se já existe as informações no banco de dados
         verifyFirstData();
 
+        //Verifica se há permissões no aplicativo
+        checkPermissions();
 
         //Título da activity
         toolbar = findViewById(R.id.toolbar);
@@ -70,6 +76,12 @@ public class MainActivity extends AppCompatActivity{
         });
 
 
+    }
+
+    public void checkPermissions(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) !=  PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
     }
 
     public void verifyFirstData(){

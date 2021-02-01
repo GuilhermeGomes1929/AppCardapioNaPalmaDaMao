@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,7 +57,11 @@ public class MyBody extends AppCompatActivity implements NavigationView.OnNaviga
         setupNavigationDrawer();
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        changeName();
 
+
+        //Muda a imagem se for homem ou mulher
+        checkIsMaleOrFemale();
 
 
         //setup dos textViews das informações
@@ -173,6 +178,34 @@ public class MyBody extends AppCompatActivity implements NavigationView.OnNaviga
 
 
 
+
+    }
+
+    public void changeName(){
+
+        View headerLayout = getLayoutInflater().inflate(R.layout.nav_header, null);
+        TextView name = headerLayout.findViewById(R.id.nav_name);
+
+        InfoDAO infoDAO = new InfoDAO(this);
+
+
+        name.setText(infoDAO.obterNomeIdadeAltura().get(0));
+    }
+
+    public void checkIsMaleOrFemale(){
+        InfoDAO infoDAO = new InfoDAO(this);
+        String sex = infoDAO.obterNomeIdadeAltura().get(2);
+
+        String[] sexType = new String[]{"Masculino", "Feminino"};
+
+        ImageView silhouette = findViewById(R.id.silhouette);
+
+        if (sex.equals(sexType[0])){
+            silhouette.setImageResource(R.drawable.male_silhouette);
+
+        }if (sex.equals(sexType[1])){
+            silhouette.setImageResource(R.drawable.woman_silhouette);
+        }
 
     }
 
