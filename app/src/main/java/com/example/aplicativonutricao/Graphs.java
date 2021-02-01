@@ -27,6 +27,8 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -44,14 +46,22 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphs);
 
+        //Setup do título da activity
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Gráficos");
 
+        //Setup da navigation drawer
         setupNavigationDrawer();
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        changeName();
 
+        View navName = navigationView.getHeaderView(0);
+        TextView name = navName.findViewById(R.id.nav_name);
+        changeName(name);
+
+
+
+        //Possibilita a leitura e modificação do banco de dados
         dao = new InfoDAO(this);
 
         ArrayList<String> allDates = dao.obterData();
@@ -77,14 +87,10 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
 
     }
 
-    public void changeName(){
+    public void changeName(View headerLayout){
 
-        View headerLayout = getLayoutInflater().inflate(R.layout.nav_header, null);
         TextView name = headerLayout.findViewById(R.id.nav_name);
-
         InfoDAO infoDAO = new InfoDAO(this);
-
-
         name.setText(infoDAO.obterNomeIdadeAltura().get(0));
     }
 

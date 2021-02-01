@@ -57,7 +57,10 @@ public class MyBody extends AppCompatActivity implements NavigationView.OnNaviga
         setupNavigationDrawer();
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        changeName();
+
+        View navName = navigationView.getHeaderView(0);
+        TextView name = navName.findViewById(R.id.nav_name);
+        changeName(name);
 
 
         //Muda a imagem se for homem ou mulher
@@ -181,14 +184,10 @@ public class MyBody extends AppCompatActivity implements NavigationView.OnNaviga
 
     }
 
-    public void changeName(){
+    public void changeName(View headerLayout){
 
-        View headerLayout = getLayoutInflater().inflate(R.layout.nav_header, null);
         TextView name = headerLayout.findViewById(R.id.nav_name);
-
         InfoDAO infoDAO = new InfoDAO(this);
-
-
         name.setText(infoDAO.obterNomeIdadeAltura().get(0));
     }
 
