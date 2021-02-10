@@ -383,7 +383,6 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
         if (count == 0){
             AlertDialog.Builder msgBox = new AlertDialog.Builder(this);
             msgBox.setTitle("Ops.. Cardápio vazio!");
-            msgBox.setMessage("Selecione um cardápio válido.");
             msgBox.show();
         }else{
             if (numberId.getVisibility()==View.GONE){
