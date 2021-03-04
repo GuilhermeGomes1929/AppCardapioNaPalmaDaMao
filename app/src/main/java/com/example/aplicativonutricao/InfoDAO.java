@@ -185,9 +185,55 @@ public class InfoDAO {
         return infos;
     }
 
+    public int obterQuantidadeDeAgua(){
+        banco = conexao.getWritableDatabase();
+        int quantidade = 0;
+        Cursor cursor = banco.query("water", new String[]{"quantity"}, null, null,null,null,null);
+        if (cursor.moveToLast()){
+            quantidade = cursor.getInt(0);
+        }
 
+        banco.close();
+        return quantidade;
+    }
 
+    public Integer obterAlarmIdNaPosicao(int position){
+        banco = conexao.getWritableDatabase();
+        Cursor cursor = banco.query("alarms",new String[]{"id"},null,null,null,null,null);
 
+        if (cursor.moveToPosition(position)){
+            int id = cursor.getInt(0);
+            banco.close();
+            return id;
 
+        }else{
+            return null;
+        }
+    }
+
+    public Integer obterUltimoAlarmeId(){
+        banco = conexao.getWritableDatabase();
+        Cursor cursor = banco.query("alarms", new String[]{"id"}, null, null, null, null, null);
+
+        if (cursor.moveToLast()){
+
+            int id = cursor.getInt(0);
+            banco.close();
+            return id;
+        }else{
+            return null;
+        }
+    }
+
+    public ArrayList<Long> obterTodosAlarmes(){
+        banco = conexao.getWritableDatabase();
+        ArrayList<Long> alarmes = new ArrayList<>();
+        Cursor cursor = banco.query("alarms", new String[]{"time"}, null, null, null, null, null);
+        while (cursor.moveToNext()){
+            alarmes.add(cursor.getLong(0));
+        }
+
+        return alarmes;
+    }
 
 }

@@ -60,9 +60,6 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_menu);
 
-
-
-
         //Título da activity
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Meu cardápio");
@@ -383,6 +380,7 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
         if (count == 0){
             AlertDialog.Builder msgBox = new AlertDialog.Builder(this);
             msgBox.setTitle("Ops.. Cardápio vazio!");
+            msgBox.setMessage("Parece que não há alimentos para essa refeição.");
             msgBox.show();
         }else{
             if (numberId.getVisibility()==View.GONE){
@@ -414,6 +412,11 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         switch (menuItem.getItemId()){
+
+            case R.id.nav_waterReminder:
+                Intent intentWater = new Intent(this, WaterReminder.class);
+                startActivity(intentWater);
+                break;
 
             case R.id.nav_graphics:
                 Intent intentGraphs = new Intent(this, Graphs.class);

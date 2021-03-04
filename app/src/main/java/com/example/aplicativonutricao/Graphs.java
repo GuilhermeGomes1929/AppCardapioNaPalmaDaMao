@@ -173,6 +173,12 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
 
+            case R.id.nav_waterReminder:
+                Intent intentWater = new Intent(this, WaterReminder.class);
+                startActivity(intentWater);
+                finish();
+                break;
+
             case R.id.nav_graphics:
                 Toast.makeText(this,"Gráficos", Toast.LENGTH_SHORT).show();
                 break;
@@ -180,11 +186,13 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
             case R.id.nav_menu:
                 Intent intentMenu = new Intent(this, ShowMenu.class);
                 startActivity(intentMenu);
+                finish();
                 break;
 
             case R.id.nav_mybody:
                 Intent intentMyBody = new Intent(this, MyBody.class);
                 startActivity(intentMyBody);
+                finish();
                 break;
 
 

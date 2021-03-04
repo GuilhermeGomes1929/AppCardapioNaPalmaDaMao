@@ -4,6 +4,6 @@
     <item
         android:title="Create"
         android:id="@+id/createMenu"
-        android:icon="@drawable/ic_baseline_add_24"
+        android:icon="@drawable/ic_baseline_add_24_white"
         app:showAsAction="always"/>
 </menu>

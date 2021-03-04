@@ -93,11 +93,13 @@ public class MainActivity extends AppCompatActivity{
             ArrayList<String> firstData = infoDAO.obterNomeIdadeAltura();
             if (!firstData.isEmpty()){
                 startActivity(new Intent(this, ShowMenu.class));
+                finish();
             }
 
         }catch (Exception e){
 
             startActivity(new Intent(this, ShowMenu.class));
+            finish();
         }
 
     }
@@ -126,6 +128,7 @@ public class MainActivity extends AppCompatActivity{
             infoDAO.insertValues("info", values);
 
             startActivity(new Intent(context, ShowMenu.class));
+            finish();
 
         }catch (Exception e){
 

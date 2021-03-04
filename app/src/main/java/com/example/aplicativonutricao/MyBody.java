@@ -302,9 +302,16 @@ public class MyBody extends AppCompatActivity implements NavigationView.OnNaviga
 
         switch (menuItem.getItemId()){
 
+            case R.id.nav_waterReminder:
+                Intent intentWater = new Intent(this, WaterReminder.class);
+                startActivity(intentWater);
+                finish();
+                break;
+
             case R.id.nav_menu:
                 Intent intentMenu= new Intent(this,ShowMenu.class);
                 startActivity(intentMenu);
+                finish();
                 break;
 
 
@@ -315,6 +322,7 @@ public class MyBody extends AppCompatActivity implements NavigationView.OnNaviga
             case R.id.nav_graphics:
                 Intent intentGraphs = new Intent(this, Graphs.class);
                 startActivity(intentGraphs);
+                finish();
                 break;
         }
 

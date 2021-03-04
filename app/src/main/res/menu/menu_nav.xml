@@ -9,9 +9,9 @@
                     android:icon="@drawable/menuicon"
                     android:title="Cardápio" />
                 <item
-                    android:title="Meu corpo"
-                    android:id="@+id/nav_mybody"
-                    android:icon="@drawable/mybodyicon"/>
+                    android:title="Lembrete de água"
+                    android:id="@+id/nav_waterReminder"
+                    android:icon="@drawable/water"/>
 
             </menu>
 
@@ -23,6 +23,12 @@
             android:title="Análise">
 
             <menu>
+
+                <item
+                    android:title="Meu corpo"
+                    android:id="@+id/nav_mybody"
+                    android:icon="@drawable/mybodyicon"/>
+
                 <item
                     android:title="Gráficos"
                     android:id="@+id/nav_graphics"

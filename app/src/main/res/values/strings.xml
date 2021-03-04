@@ -14,6 +14,9 @@
     <string name="por_o_caseira">Porção caseira:</string>
     <string name="substitui_es">Substituições:</string>
 
+    <string name="notification_channel_name">Water Alarm</string>
+    <string name="notification_channel_id">WATER_ALARM</string>
+
 
     <string-array name="group_foods">
         <item>Grupo</item>

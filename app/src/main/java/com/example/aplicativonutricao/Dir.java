@@ -18,6 +18,7 @@ public class Dir {
 
             File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/WhatsApp/Media/WhatsApp Documents");
             String arqs[] = dir.list();
+
             ArrayList<String> list = new ArrayList<>();
 
 
