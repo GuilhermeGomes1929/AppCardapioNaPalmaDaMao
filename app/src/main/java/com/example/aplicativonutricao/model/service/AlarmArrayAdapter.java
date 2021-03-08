@@ -1,11 +1,9 @@
-package com.example.aplicativonutricao;
+package com.example.aplicativonutricao.model.service;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aplicativonutricao.model.dao.InfoDAO;
+import com.example.aplicativonutricao.R;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class AlarmArrayAdapter extends ArrayAdapter<String> {
 

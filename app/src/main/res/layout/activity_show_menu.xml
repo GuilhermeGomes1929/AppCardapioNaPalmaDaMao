@@ -127,7 +127,7 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-                        <com.example.aplicativonutricao.MyListView
+                        <com.example.aplicativonutricao.model.service.MyListView
                             android:layout_width="366dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -211,7 +211,7 @@
                         android:orientation="horizontal">
 
 
-                        <com.example.aplicativonutricao.MyListView
+                        <com.example.aplicativonutricao.model.service.MyListView
                             android:id="@+id/list_menu_snack"
                             android:layout_width="366dp"
                             android:layout_height="wrap_content"
@@ -293,7 +293,7 @@
                         android:orientation="horizontal">
 
 
-                        <com.example.aplicativonutricao.MyListView
+                        <com.example.aplicativonutricao.model.service.MyListView
                             android:id="@+id/list_menu_lunch"
                             android:layout_width="366dp"
                             android:layout_height="wrap_content"
@@ -375,7 +375,7 @@
                         android:orientation="horizontal">
 
 
-                        <com.example.aplicativonutricao.MyListView
+                        <com.example.aplicativonutricao.model.service.MyListView
                             android:id="@+id/list_menu_aftersnack"
                             android:layout_width="366dp"
                             android:layout_height="wrap_content"
@@ -457,7 +457,7 @@
                         android:orientation="horizontal">
 
 
-                        <com.example.aplicativonutricao.MyListView
+                        <com.example.aplicativonutricao.model.service.MyListView
                             android:id="@+id/list_menu_dinner"
                             android:layout_width="366dp"
                             android:layout_height="wrap_content"
@@ -540,7 +540,7 @@
                         android:orientation="horizontal">
 
 
-                        <com.example.aplicativonutricao.MyListView
+                        <com.example.aplicativonutricao.model.service.MyListView
                             android:id="@+id/list_menu_supper"
                             android:layout_width="366dp"
                             android:layout_height="wrap_content"

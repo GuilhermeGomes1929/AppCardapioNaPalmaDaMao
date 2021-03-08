@@ -1,4 +1,4 @@
-package com.example.aplicativonutricao;
+package com.example.aplicativonutricao.model.service;
 
 import android.os.Environment;
 import android.widget.ArrayAdapter;

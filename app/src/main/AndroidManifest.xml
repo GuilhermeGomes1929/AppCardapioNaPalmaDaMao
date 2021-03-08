@@ -14,14 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <receiver android:name=".WaterBroadcastReceiver">
+        <receiver android:name=".model.service.WaterBroadcastReceiver">
 
             <intent-filter>
                 <action android:name="WATER_ALARM"/>
             </intent-filter>
 
         </receiver>
-        <receiver android:name=".DrinkBroadcastReceiver">
+        <receiver android:name=".model.service.DrinkBroadcastReceiver">
 
             <intent-filter>
                 <action android:name="WATER_ALARM"/>
@@ -29,13 +29,12 @@
 
         </receiver>
 
-
-        <activity android:name=".WaterReminder"></activity>
-        <activity android:name=".ShowMenu" />
+        <activity android:name=".view.ShowMenu" />
+        <activity android:name=".view.WaterReminder" />
         <activity android:name=".Graphs" />
         <activity android:name=".GetInfos" />
-        <activity android:name=".MyBody" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.MyBody" />
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

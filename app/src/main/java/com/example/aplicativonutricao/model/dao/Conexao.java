@@ -1,4 +1,4 @@
-package com.example.aplicativonutricao;
+package com.example.aplicativonutricao.model.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,6 +26,9 @@ public class Conexao extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS water(id integer primary key autoincrement, " +
                 "quantity int)");
 
+        db.execSQL("CREATE TABLE IF NOT EXISTS litros(id integer primary key autoincrement, " +
+                "fullquantity int)");
+
         db.execSQL("CREATE TABLE IF NOT EXISTS alarms(id integer primary key autoincrement, " +
                 "time INTEGER)");
 
@@ -38,6 +41,7 @@ public class Conexao extends SQLiteOpenHelper {
             db.execSQL("drop table body;");
             db.execSQL("drop table info;");
             db.execSQL("drop table water;");
+            db.execSQL("drop table litros;");
             db.execSQL("drop table alarms;");
             onCreate(db);
         }catch (Exception e){

@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aplicativonutricao.model.dao.InfoDAO;
+import com.example.aplicativonutricao.view.MyBody;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -22,15 +24,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.jjoe64.graphview.DefaultLabelFormatter;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Graphs extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -91,7 +86,7 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
 
         TextView name = headerLayout.findViewById(R.id.nav_name);
         InfoDAO infoDAO = new InfoDAO(this);
-        name.setText(infoDAO.obterNomeIdadeAltura().get(0));
+        name.setText(infoDAO.obterNomeIdadeAltura().getName());
     }
 
     public void setupGraphs(int chartId, ArrayList<String> data, final ArrayList<String> date , String label){
@@ -174,7 +169,7 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
         switch (menuItem.getItemId()){
 
             case R.id.nav_waterReminder:
-                Intent intentWater = new Intent(this, WaterReminder.class);
+                Intent intentWater = new Intent(this, com.example.aplicativonutricao.view.WaterReminder.class);
                 startActivity(intentWater);
                 finish();
                 break;
@@ -184,13 +179,13 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
                 break;
 
             case R.id.nav_menu:
-                Intent intentMenu = new Intent(this, ShowMenu.class);
+                Intent intentMenu = new Intent(this, com.example.aplicativonutricao.view.ShowMenu.class);
                 startActivity(intentMenu);
                 finish();
                 break;
 
             case R.id.nav_mybody:
-                Intent intentMyBody = new Intent(this, MyBody.class);
+                Intent intentMyBody = new Intent(this, com.example.aplicativonutricao.view.MyBody.class);
                 startActivity(intentMyBody);
                 finish();
                 break;

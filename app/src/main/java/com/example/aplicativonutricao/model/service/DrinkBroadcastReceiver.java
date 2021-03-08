@@ -1,11 +1,12 @@
-package com.example.aplicativonutricao;
+package com.example.aplicativonutricao.model.service;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.ProgressBar;
+
+import com.example.aplicativonutricao.model.dao.InfoDAO;
 
 public class DrinkBroadcastReceiver extends BroadcastReceiver {
     @Override

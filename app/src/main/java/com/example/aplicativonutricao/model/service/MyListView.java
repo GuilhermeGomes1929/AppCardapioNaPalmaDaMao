@@ -1,4 +1,4 @@
-package com.example.aplicativonutricao;
+package com.example.aplicativonutricao.model.service;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -1,4 +1,4 @@
-package com.example.aplicativonutricao;
+package com.example.aplicativonutricao.model.entity;
 
 public class FoodListModel {
     private int id;

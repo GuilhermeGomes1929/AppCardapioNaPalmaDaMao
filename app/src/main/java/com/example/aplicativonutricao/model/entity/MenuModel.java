@@ -1,4 +1,4 @@
-package com.example.aplicativonutricao;
+package com.example.aplicativonutricao.model.entity;
 
 import android.view.Menu;
 

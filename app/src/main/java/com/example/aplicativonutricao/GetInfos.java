@@ -16,7 +16,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DateFormat;
+import com.example.aplicativonutricao.model.dao.InfoDAO;
+import com.example.aplicativonutricao.model.entity.PersonModel;
+import com.example.aplicativonutricao.view.MyBody;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,13 +81,13 @@ public class GetInfos extends AppCompatActivity {
         TextView nome = findViewById(R.id.nome_perfil);
         TextView idade = findViewById(R.id.altura_idade_perfil);
         dao = new InfoDAO(this);
-        ArrayList<String> infos = dao.obterNomeIdadeAltura();
-        if (infos.isEmpty()){
+        PersonModel infos = dao.obterNomeIdadeAltura();
+        if (infos.getName() == null){
             nome.setText("Nome não identificado");
             idade.setText("Idade e altura não identificadas");
         }else {
-            nome.setText(infos.get(0));
-            idade.setText(infos.get(3)+"m /"+infos.get(1)+" anos");
+            nome.setText(infos.getName());
+            idade.setText(infos.getHeight()+"m /"+infos.getAge()+" anos");
         }
 
 
@@ -159,11 +162,11 @@ public class GetInfos extends AppCompatActivity {
                             values.put("altura", Float.valueOf(String.valueOf(altura.getText())));
                             dao.delete("info", 0);
                             dao.insertValues("info", values);
-                            ArrayList<String> infos = dao.obterNomeIdadeAltura();
+                            PersonModel infos = dao.obterNomeIdadeAltura();
                             TextView nome = findViewById(R.id.nome_perfil);
                             TextView idadeAltura = findViewById(R.id.altura_idade_perfil);
-                            nome.setText(infos.get(0));
-                            idadeAltura.setText(infos.get(3)+"m /"+infos.get(1)+" anos");
+                            nome.setText(infos.getName());
+                            idadeAltura.setText(infos.getHeight()+"m /"+infos.getAge()+" anos");
                         }catch (Exception e){
 
                             Toast.makeText(context,"Algum campo se encontra vazio... Tente novamente!",Toast.LENGTH_LONG).show();

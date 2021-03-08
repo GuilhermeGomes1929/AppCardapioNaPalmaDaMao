@@ -1,8 +1,10 @@
-package com.example.aplicativonutricao;
+package com.example.aplicativonutricao.model.dao;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+
+import com.example.aplicativonutricao.model.entity.MenuModel;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,13 @@
-package com.example.aplicativonutricao;
+package com.example.aplicativonutricao.model.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.aplicativonutricao.model.entity.BodyModel;
+import com.example.aplicativonutricao.model.entity.PersonModel;
+
 import java.util.ArrayList;
 
 
@@ -55,28 +59,29 @@ public class InfoDAO {
         return infos;
     }
 
-    public ArrayList<String> obterInfosData(String table, int position){
+    public BodyModel obterInfosData(String table, int position){
         banco = conexao.getWritableDatabase();
-        ArrayList<String> infos = new ArrayList<>();
-        Cursor cursor = banco.query(table, new String[]{"data","peso","meta","bf","ombro","bracod","bracoe","peitoral","cintura","quadril", "pernad", "pernae", "panturrilhad", "panturrilhae"},
+        BodyModel bodyModel = new BodyModel();
+        Cursor cursor = banco.query(table, new String[]{"data","peso","meta","bf","ombro","bracod","bracoe","peitoral",
+                        "cintura","quadril", "pernad", "pernae", "panturrilhad", "panturrilhae"},
                 null,null,null,null,null);
         cursor.moveToPosition(position);
-        infos.add(cursor.getString(0));
-        infos.add(String.valueOf(cursor.getFloat(1)));
-        infos.add(String.valueOf(cursor.getFloat(2)));
-        infos.add(String.valueOf(cursor.getFloat(3)));
-        infos.add(String.valueOf(cursor.getInt(4)));
-        infos.add(String.valueOf(cursor.getInt(5)));
-        infos.add(String.valueOf(cursor.getInt(6)));
-        infos.add(String.valueOf(cursor.getInt(7)));
-        infos.add(String.valueOf(cursor.getInt(8)));
-        infos.add(String.valueOf(cursor.getInt(9)));
-        infos.add(String.valueOf(cursor.getInt(10)));
-        infos.add(String.valueOf(cursor.getInt(11)));
-        infos.add(String.valueOf(cursor.getInt(12)));
-        infos.add(String.valueOf(cursor.getInt(13)));
+        bodyModel.setData(cursor.getString(0));
+        bodyModel.setWeight(cursor.getFloat(1));
+        bodyModel.setGoal(cursor.getFloat(2));
+        bodyModel.setBodyFat(cursor.getFloat(3));
+        bodyModel.setShoulders(cursor.getInt(4));
+        bodyModel.setRightArm(cursor.getInt(5));
+        bodyModel.setLeftArm(cursor.getInt(6));
+        bodyModel.setChest(cursor.getInt(7));
+        bodyModel.setWaist(cursor.getInt(8));
+        bodyModel.setHip(cursor.getInt(9));
+        bodyModel.setRightLeg(cursor.getInt(10));
+        bodyModel.setLeftLeg(cursor.getInt(11));
+        bodyModel.setRightCalf(cursor.getInt(12));
+        bodyModel.setLeftCalf(cursor.getInt(13));
 
-        return infos;
+        return bodyModel;
     }
 
     public ArrayList<String> obterPesoGrafico(){
@@ -169,20 +174,19 @@ public class InfoDAO {
     }
 
 
-    public ArrayList<String> obterNomeIdadeAltura(){
+    public PersonModel obterNomeIdadeAltura(){
         banco = conexao.getWritableDatabase();
-        ArrayList<String> infos = new ArrayList<>();
+        PersonModel personModel = new PersonModel();
         Cursor cursor = banco.query("info", new String[]{"nome","idade","sexo","altura"},null,null,null,null,null);
         if (cursor.moveToLast()){
-            infos.add(cursor.getString(0));
-            infos.add(cursor.getString(1));
-            infos.add(cursor.getString(2));
-            infos.add(String.valueOf(cursor.getFloat(3)));
+            personModel.setName(cursor.getString(0));
+            personModel.setAge(Integer.parseInt(cursor.getString(1)));
+            personModel.setSex(cursor.getString(2));
+            personModel.setHeight(cursor.getFloat(3));
         }
 
-
         banco.close();
-        return infos;
+        return personModel;
     }
 
     public int obterQuantidadeDeAgua(){
@@ -234,6 +238,19 @@ public class InfoDAO {
         }
 
         return alarmes;
+    }
+
+    public Integer obterLitros(){
+        banco = conexao.getWritableDatabase();
+        Cursor cursor = banco.query("litros", new String[]{"fullquantity"}, null, null, null, null, null);
+        if (cursor.moveToLast()){
+            int litros = cursor.getInt(0);
+
+            return litros;
+        }else {
+            return null;
+        }
+
     }
 
 }
