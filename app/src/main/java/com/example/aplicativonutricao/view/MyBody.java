@@ -1,6 +1,5 @@
 package com.example.aplicativonutricao.view;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -14,20 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.aplicativonutricao.GetInfos;
 import com.example.aplicativonutricao.Graphs;
 import com.example.aplicativonutricao.R;
 import com.example.aplicativonutricao.model.dao.InfoDAO;
 import com.example.aplicativonutricao.presenter.MyBodyPresenter;
-
-import java.util.ArrayList;
 
 public class MyBody extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

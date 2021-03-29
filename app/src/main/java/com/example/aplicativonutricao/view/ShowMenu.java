@@ -90,6 +90,7 @@ public class ShowMenu extends AppCompatActivity implements NavigationView.OnNavi
     public void setDate(){
         TextView dateText = findViewById(R.id.date);
         Date date = new Date();
+
         String dateString = new SimpleDateFormat("dd/MM/yyyy").format(date);
         dateText.setText(dateString);
     }

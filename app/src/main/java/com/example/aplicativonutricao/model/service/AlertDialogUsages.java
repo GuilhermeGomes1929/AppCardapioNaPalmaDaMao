@@ -10,6 +10,7 @@ import android.widget.Spinner;
 public class AlertDialogUsages {
 
     private AlertDialog.Builder msgBox;
+    private AlertDialog dialog;
 
     public AlertDialogUsages(Context context){
         msgBox = new AlertDialog.Builder(context);
@@ -51,5 +52,22 @@ public class AlertDialogUsages {
         msgBox.setTitle("Ops... O banco de dados se encontra vazio!");
         msgBox.setMessage("Não foi possível encontrar suas informações no banco de dados. Por favor, adicone-as e tente novamente!");
         msgBox.show();
+    }
+
+    public void updatePersonInfos(View view){
+        msgBox.setView(view);
+        dialog = msgBox.create();
+        dialog.show();
+    }
+
+    public void updateBodyInfos(Spinner spinner, DialogInterface.OnClickListener[] onClickListener){
+        msgBox.setTitle("Apagar informações da data:");
+        msgBox.setView(spinner);
+        msgBox.setPositiveButton("Deletar", onClickListener[0]);
+        msgBox.setNegativeButton("Cancelar", onClickListener[1]);
+    }
+
+    public void alertDialogDismiss(){
+        dialog.dismiss();
     }
 }

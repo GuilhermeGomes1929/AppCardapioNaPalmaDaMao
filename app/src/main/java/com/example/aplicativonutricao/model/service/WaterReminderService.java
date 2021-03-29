@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.widget.Toast;
 
 import com.example.aplicativonutricao.model.dao.InfoDAO;
@@ -12,6 +13,7 @@ import com.example.aplicativonutricao.model.dao.InfoDAO;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class WaterReminderService {
@@ -66,55 +68,53 @@ public class WaterReminderService {
         return infoDAO.obterLitros();
     }
 
-    public void createAnAlarm(int hourOfDay , int minute){
+    public void createAnAlarm(int hourOfDay, int minute){
+
         ContentValues values = new ContentValues();
+        Calendar calendar = Calendar.getInstance();
+        String action = "";
 
         if (infoDAO.obterUltimoAlarmeId() == null){
-            Intent intent = new Intent(waterReminderContext, com.example.aplicativonutricao.model.service.WaterBroadcastReceiver.class);
-            intent.setAction(String.valueOf(1));
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(waterReminderContext, 0, intent, 0);
-            int hour = hourOfDay;
-            int min = minute;
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, min);
-            calendar.set(Calendar.SECOND, 0);
-
-            AlarmManager alarm = (AlarmManager) waterReminderContext.getSystemService(Context.ALARM_SERVICE);
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
-
-            values.put("time", calendar.getTimeInMillis());
-            infoDAO.insertValues("alarms", values);
-
-            //updateAlarmList();
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-            Toast.makeText(waterReminderContext, "Alarme agendado para "+dateFormat.format(calendar.getTime()), Toast.LENGTH_LONG).show();
-
+            action = "1";
+        }else{
+            action = String.valueOf(infoDAO.obterUltimoAlarmeId() + 1);
         }
-        else{
-            Intent intent = new Intent(waterReminderContext, com.example.aplicativonutricao.model.service.WaterBroadcastReceiver.class);
-            intent.setAction(String.valueOf(infoDAO.obterUltimoAlarmeId()+1));
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(waterReminderContext, 0, intent, 0);
-            int hour = hourOfDay;
-            int min = minute;
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, min);
-            calendar.set(Calendar.SECOND, 0);
 
-            AlarmManager alarm = (AlarmManager) waterReminderContext.getSystemService(Context.ALARM_SERVICE);
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        long timeInMillis = calendar.getTimeInMillis();
 
-            values.put("time", calendar.getTimeInMillis());
-            infoDAO.insertValues("alarms", values);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-            Toast.makeText(waterReminderContext, "Alarme agendado para "+dateFormat.format(calendar.getTime()), Toast.LENGTH_LONG).show();
+        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > hourOfDay){
+            timeInMillis = timeInMillis + 1000 * 60 * 60 * 24;
 
+        }else if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) == hourOfDay){
+            if (Calendar.getInstance().get(Calendar.MINUTE) >= minute){
+                timeInMillis = timeInMillis + 1000 * 60 * 60 * 24;
+            }
         }
+
+        AlarmManager alarmManager = (AlarmManager) waterReminderContext.getSystemService(Context.ALARM_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Intent intent = new Intent(waterReminderContext, RepeatingWaterBroadcastReceiver.class);
+            intent.setAction(action);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(waterReminderContext, 1, intent, 0);
+
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
+        }else{
+            Intent intent = new Intent(waterReminderContext, WaterBroadcastReceiver.class);
+            intent.setAction(action);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(waterReminderContext, 1, intent, 0);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeInMillis,AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+
+        values.put("time", calendar.getTimeInMillis());
+        infoDAO.insertValues("alarms", values);
+        Toast.makeText(waterReminderContext, "Alarme agendado para "+ new SimpleDateFormat("EEE HH:mm", new Locale("pt","BR")).format(timeInMillis), Toast.LENGTH_LONG).show();
+
     }
 
     public ArrayList<String> changeLongListToString(ArrayList<Long> longArrayList) {

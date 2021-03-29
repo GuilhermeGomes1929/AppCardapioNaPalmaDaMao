@@ -1,5 +1,6 @@
 package com.example.aplicativonutricao.model.service;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,16 +10,21 @@ import android.content.Intent;
 import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 
 import com.example.aplicativonutricao.R;
+import com.example.aplicativonutricao.view.WaterReminder;
 
-public class WaterBroadcastReceiver extends BroadcastReceiver {
+import java.util.Calendar;
+
+public class RepeatingWaterBroadcastReceiver extends BroadcastReceiver {
+
+
     @Override
     public void onReceive(Context context, Intent intent) {
-
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, com.example.aplicativonutricao.view.WaterReminder.class), 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, WaterReminder.class), 0);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(context.getString(R.string.notification_channel_id),
@@ -42,9 +48,20 @@ public class WaterBroadcastReceiver extends BroadcastReceiver {
         builder.setVibrate(new long[]{300,300,300,300,300});
         builder.setSound(Uri.parse("android.resource://"+context.getPackageName()+"/"+R.raw.water_drop_notification));
         builder.addAction(R.drawable.cup,"Beber agora",
-                PendingIntent.getBroadcast(context, 0, new Intent(context, com.example.aplicativonutricao.model.service.DrinkBroadcastReceiver.class),0));
+                PendingIntent.getBroadcast(context, 0, new Intent(context, DrinkBroadcastReceiver.class),0));
 
         notificationManager.notify(22062003, builder.build());
+
+
+
+        PendingIntent oldPendingIntent = PendingIntent.getBroadcast(context, 1, intent , 0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, 0);
+        AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + 24*60*60*1000, oldPendingIntent);
+        }
 
 
     }

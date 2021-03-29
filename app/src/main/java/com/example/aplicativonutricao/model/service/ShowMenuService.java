@@ -10,8 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aplicativonutricao.model.dao.FoodListDAO;
-import com.example.aplicativonutricao.model.entity.FoodListModel;
 import com.example.aplicativonutricao.model.dao.MenuDAO;
+import com.example.aplicativonutricao.model.entity.FoodListModel;
 import com.example.aplicativonutricao.model.entity.MenuModel;
 import com.example.aplicativonutricao.presenter.ShowMenuPresenter;
 
