@@ -37,7 +37,7 @@
 
         <activity android:name=".view.ShowMenu" />
         <activity android:name=".view.WaterReminder" />
-        <activity android:name=".Graphs" />
+        <activity android:name=".view.Graphs" />
         <activity android:name=".view.GetInfos" />
         <activity android:name=".view.MyBody" />
         <activity android:name=".view.MainActivity">

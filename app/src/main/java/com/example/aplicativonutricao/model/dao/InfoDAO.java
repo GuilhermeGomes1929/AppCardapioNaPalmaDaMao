@@ -84,6 +84,35 @@ public class InfoDAO {
         return bodyModel;
     }
 
+    public ArrayList<BodyModel> obterInfoGrafico(){
+        banco = conexao.getWritableDatabase();
+        ArrayList<BodyModel> infos = new ArrayList<>();
+        Cursor cursor = banco.query("body",
+                new String[]{"data","peso","meta","bf","ombro","bracod","bracoe","peitoral",
+                        "cintura","quadril", "pernad", "pernae", "panturrilhad", "panturrilhae"}, null, null, null, null,null);
+
+        while (cursor.moveToNext()){
+            BodyModel bodyModel = new BodyModel();
+            bodyModel.setData(cursor.getString(0));
+            bodyModel.setWeight(cursor.getFloat(1));
+            bodyModel.setGoal(cursor.getFloat(2));
+            bodyModel.setBodyFat(cursor.getFloat(3));
+            bodyModel.setShoulders(cursor.getInt(4));
+            bodyModel.setRightArm(cursor.getInt(5));
+            bodyModel.setLeftArm(cursor.getInt(6));
+            bodyModel.setChest(cursor.getInt(7));
+            bodyModel.setWaist(cursor.getInt(8));
+            bodyModel.setHip(cursor.getInt(9));
+            bodyModel.setRightLeg(cursor.getInt(10));
+            bodyModel.setLeftLeg(cursor.getInt(11));
+            bodyModel.setRightCalf(cursor.getInt(12));
+            bodyModel.setLeftCalf(cursor.getInt(13));
+            infos.add(bodyModel);
+        }
+
+        return infos;
+    }
+
     public ArrayList<String> obterPesoGrafico(){
         banco = conexao.getWritableDatabase();
         ArrayList<String> infos = new ArrayList<>();

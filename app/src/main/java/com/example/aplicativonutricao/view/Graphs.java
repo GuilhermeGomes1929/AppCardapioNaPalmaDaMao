@@ -1,4 +1,4 @@
-package com.example.aplicativonutricao;
+package com.example.aplicativonutricao.view;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aplicativonutricao.R;
 import com.example.aplicativonutricao.model.dao.InfoDAO;
 import com.example.aplicativonutricao.view.MyBody;
 import com.github.mikephil.charting.charts.LineChart;
@@ -92,6 +93,7 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
     public void setupGraphs(int chartId, ArrayList<String> data, final ArrayList<String> date , String label){
 
         LineChart lineChart = findViewById(chartId);
+
 
         if (data.isEmpty()){
             lineChart.setNoDataText("Não há informações salvas.");

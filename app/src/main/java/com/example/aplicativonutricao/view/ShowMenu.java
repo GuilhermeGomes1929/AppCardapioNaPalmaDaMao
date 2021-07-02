@@ -23,7 +23,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.aplicativonutricao.Graphs;
 import com.example.aplicativonutricao.model.dao.InfoDAO;
 import com.example.aplicativonutricao.R;
 import com.example.aplicativonutricao.presenter.ShowMenuPresenter;
