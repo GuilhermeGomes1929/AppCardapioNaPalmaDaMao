@@ -104,59 +104,61 @@ public class GetInfosPresenter {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        View.OnClickListener[] listeners = new View.OnClickListener[]{new View.OnClickListener() {
+        DialogInterface.OnClickListener[] listeners = new DialogInterface.OnClickListener[]{new DialogInterface.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
                 if (spinner.getCount() > 0) {
                     service.deleteBodyInfoFromData(spinner.getSelectedItemPosition());
                 } else {
                     Toast.makeText(getInfosContext, "Não há informações para deletar.", Toast.LENGTH_LONG).show();
                 }
             }
-        }, new View.OnClickListener() {
+        }, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getInfosContext, "Nenhuma informação foi deletada", Toast.LENGTH_LONG).show();
             }
         }};
-        usages.updateBodyInfos(spinner, (DialogInterface.OnClickListener[]) listeners);
+        usages.updateBodyInfos(spinner, listeners);
 
     }
 
     public void saveBodyInfo(){
 
-        BodyModel bodyModel = new BodyModel();
-        Date date = new Date();
-        EditText currentWeight = getInfosActivity.findViewById(R.id.peso);
-        EditText goal = getInfosActivity.findViewById(R.id.meta);
-        EditText bodyFat = getInfosActivity.findViewById(R.id.bf);
-        EditText shoulders = getInfosActivity.findViewById(R.id.ombros);
-        EditText chest = getInfosActivity.findViewById(R.id.peitoral);
-        EditText leftArm = getInfosActivity.findViewById(R.id.bracoE);
-        EditText rightArm = getInfosActivity.findViewById(R.id.bracoD);
-        EditText waist = getInfosActivity.findViewById(R.id.cintura);
-        EditText hip = getInfosActivity.findViewById(R.id.quadril);
-        EditText leftLeg = getInfosActivity.findViewById(R.id.pernaE);
-        EditText rightLeg = getInfosActivity.findViewById(R.id.pernaD);
-        EditText leftCalf = getInfosActivity.findViewById(R.id.panturrilhaE);
-        EditText rightCalf = getInfosActivity.findViewById(R.id.panturrilhaD);
-
-        bodyModel.setData(new SimpleDateFormat("dd-MM").format(date));
-        bodyModel.setWeight(Float.valueOf(currentWeight.getText().toString()));
-        bodyModel.setGoal(Float.valueOf(goal.getText().toString()));
-        bodyModel.setBodyFat(Float.valueOf(bodyFat.getText().toString()));
-        bodyModel.setShoulders(Integer.parseInt(shoulders.getText().toString()));
-        bodyModel.setChest(Integer.parseInt(chest.getText().toString()));
-        bodyModel.setLeftArm(Integer.parseInt(leftArm.getText().toString()));
-        bodyModel.setRightArm(Integer.parseInt(rightArm.getText().toString()));
-        bodyModel.setWaist(Integer.parseInt(waist.getText().toString()));
-        bodyModel.setHip(Integer.parseInt(hip.getText().toString()));
-        bodyModel.setLeftLeg(Integer.parseInt(leftLeg.getText().toString()));
-        bodyModel.setRightLeg(Integer.parseInt(rightLeg.getText().toString()));
-        bodyModel.setLeftCalf(Integer.parseInt(leftCalf.getText().toString()));
-        bodyModel.setRightCalf(Integer.parseInt(rightCalf.getText().toString()));
-
         try{
+
+            BodyModel bodyModel = new BodyModel();
+            Date date = new Date();
+            EditText currentWeight = getInfosActivity.findViewById(R.id.peso);
+            EditText goal = getInfosActivity.findViewById(R.id.meta);
+            EditText bodyFat = getInfosActivity.findViewById(R.id.bf);
+            EditText shoulders = getInfosActivity.findViewById(R.id.ombros);
+            EditText chest = getInfosActivity.findViewById(R.id.peitoral);
+            EditText leftArm = getInfosActivity.findViewById(R.id.bracoE);
+            EditText rightArm = getInfosActivity.findViewById(R.id.bracoD);
+            EditText waist = getInfosActivity.findViewById(R.id.cintura);
+            EditText hip = getInfosActivity.findViewById(R.id.quadril);
+            EditText leftLeg = getInfosActivity.findViewById(R.id.pernaE);
+            EditText rightLeg = getInfosActivity.findViewById(R.id.pernaD);
+            EditText leftCalf = getInfosActivity.findViewById(R.id.panturrilhaE);
+            EditText rightCalf = getInfosActivity.findViewById(R.id.panturrilhaD);
+
+            bodyModel.setData(new SimpleDateFormat("dd-MM").format(date));
+            bodyModel.setWeight(Float.valueOf(currentWeight.getText().toString()));
+            bodyModel.setGoal(Float.valueOf(goal.getText().toString()));
+            bodyModel.setBodyFat(Float.valueOf(bodyFat.getText().toString()));
+            bodyModel.setShoulders(Integer.parseInt(shoulders.getText().toString()));
+            bodyModel.setChest(Integer.parseInt(chest.getText().toString()));
+            bodyModel.setLeftArm(Integer.parseInt(leftArm.getText().toString()));
+            bodyModel.setRightArm(Integer.parseInt(rightArm.getText().toString()));
+            bodyModel.setWaist(Integer.parseInt(waist.getText().toString()));
+            bodyModel.setHip(Integer.parseInt(hip.getText().toString()));
+            bodyModel.setLeftLeg(Integer.parseInt(leftLeg.getText().toString()));
+            bodyModel.setRightLeg(Integer.parseInt(rightLeg.getText().toString()));
+            bodyModel.setLeftCalf(Integer.parseInt(leftCalf.getText().toString()));
+            bodyModel.setRightCalf(Integer.parseInt(rightCalf.getText().toString()));
+
             service.saveBodyInfo(bodyModel);
             Toast.makeText(getInfosContext, "Informações salvas com sucesso", Toast.LENGTH_LONG).show();
         }catch (Exception e){

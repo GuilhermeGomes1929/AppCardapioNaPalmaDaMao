@@ -65,6 +65,7 @@ public class AlertDialogUsages {
         msgBox.setView(spinner);
         msgBox.setPositiveButton("Deletar", onClickListener[0]);
         msgBox.setNegativeButton("Cancelar", onClickListener[1]);
+        msgBox.show();
     }
 
     public void alertDialogDismiss(){
